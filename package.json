@@ -1,0 +1,25 @@
+{
+  "name": "chsh",
+  "version": "1.0.0",
+  "description": "An implementation of the CHSH game",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "quantum",
+    "chsh",
+    "game",
+    "node",
+    "javascript",
+    "typescript"
+  ],
+  "author": "David Dasenbrook",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@types/node": "^9.4.6"
+  }
+}
