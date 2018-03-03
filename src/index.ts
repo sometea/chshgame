@@ -1,17 +1,23 @@
 import { createServer, Socket } from 'net';
+import { PlayerSocket } from './playerSocket';
+import { ChshGame } from './chshGame';
 
-let socketAlice: Socket, socketBob: Socket;
+let playerAlice: PlayerSocket;
+let playerBob: PlayerSocket;
+let game: ChshGame;
 
 const server = createServer(socket => {
     socket.write('Welcome to the CHSH game!\n');
-    if (!socketAlice) {
-        socketAlice = socket;
-        socket.write('You are Alice!\n');
+    if (!playerAlice) {
+        playerAlice = new PlayerSocket(socket);
+        playerAlice.message('You are Alice! Waiting for Bob to join...');
         return;
     }
-    if (!socketBob) {
-        socketBob = socket;
-        socket.write('You are Bob!\n');
+    if (!playerBob) {
+        playerBob = new PlayerSocket(socket);
+        playerBob.message('You are Bob! Alright, Alice has already joined, so starting the Game now!');
+        game = new ChshGame(playerAlice, playerBob);
+        game.start();
         return;
     }
     socket.write('Unfortunately, there are already two players. Bye!\n')
