@@ -16,6 +16,7 @@ const server = createServer(socket => {
     if (!playerBob) {
         playerBob = new PlayerSocket(socket);
         playerBob.message('You are Bob! Alright, Alice has already joined, so starting the Game now!');
+        playerAlice.message('Bob has just joined. Starting the game now, have fun!')
         game = new ChshGame(playerAlice, playerBob);
         game.start();
         return;
