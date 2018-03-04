@@ -1,6 +1,7 @@
 import { PlayerSocket } from "./playerSocket";
 import { GameState } from "./gameState";
 import { Bit } from "./bit";
+import { Score } from "./score";
 
 export class ChshGame {
     private state: GameState;
@@ -46,10 +47,9 @@ export class ChshGame {
 
     private triggerReferee() {
         if (!this.state.isRefereesTurn()) return;
-        this.messageBoth('Score: ' + this.state.score());
-        this.score += this.state.score();
+        this.score += this.state.getScore();
         this.turns += 1;
-        this.messageBoth('% won: ' + this.score / this.turns);
+        this.messageBoth('Score: ' + this.state.getScore() + ', % won: ' + this.score / this.turns * 100);
         this.poseRefereeQuestion();
     }
     

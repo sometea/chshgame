@@ -1,4 +1,5 @@
 import { Bit } from "./bit";
+import { Score } from "./score";
 
 export enum Turn {
     Referee,
@@ -17,6 +18,8 @@ export class GameState {
     private refereeQuestionAlice: Bit = new Bit();
 
     private refereeQuestionBob: Bit = new Bit();
+
+    private score: Score = new Score();
 
     isRefereesTurn() {
         return this.turn === Turn.Referee;
@@ -57,14 +60,12 @@ export class GameState {
         this.turn = Turn.WaitingForPlayers;
     }
 
-    score() {
-        return this.winning() ? 1 : 0;
-    }
-
-    private winning() {
-        const refereeProduct = this.refereeQuestionAlice.toNumber() * this.refereeQuestionBob.toNumber();
-        return (this.lastInputAlice.toNumber() && this.lastInputBob.toNumber()) ?
-            refereeProduct === 0:
-            refereeProduct === this.lastInputAlice.toNumber() || this.lastInputBob.toNumber();
+    getScore() {
+        return this.score.getScore(
+            this.refereeQuestionAlice,
+            this.refereeQuestionBob,
+            this.lastInputAlice,
+            this.lastInputBob
+        );
     }
 }
