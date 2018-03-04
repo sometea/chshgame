@@ -2,6 +2,7 @@ import { PlayerSocket } from "./playerSocket";
 import { GameState } from "./gameState";
 import { Bit } from "./bit";
 import { Score } from "./score";
+import { Summary } from "./summary";
 
 export class ChshGame {
     private state: GameState;
@@ -49,7 +50,8 @@ export class ChshGame {
         if (!this.state.isRefereesTurn()) return;
         this.score += this.state.getScore();
         this.turns += 1;
-        this.messageBoth('Score: ' + this.state.getScore() + ', % won: ' + this.score / this.turns * 100);
+        this.messageBoth((new Summary()).getSummary(this.state.getRound()));
+        this.messageBoth('You ' + (this.state.getScore() ? 'win' : 'loose') + ', % won: ' + this.score / this.turns * 100 + '\n');
         this.poseRefereeQuestion();
     }
     
