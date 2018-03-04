@@ -1,10 +1,10 @@
-import { Round } from "./gameState";
+import { Round } from "./round";
 
 export class Summary {
     getSummary(round: Round): string {
-        return 'Question to Alice: ' + round.refereeQuestionAlice.toString() + '\n'
-            + 'Question to Bob: ' + round.refereeQuestionBob.toString() + '\n'
-            + 'Alice answered: ' + round.lastInputAlice.toString() + '\n'
-            + 'Bob answered: ' + round.lastInputBob.toString();
+        return 'Question to Alice: ' + round.questionAlice.toString() + '\n'
+            + 'Question to Bob: ' + round.questionBob.toString() + '\n'
+            + 'Alice answered: ' + round.answerAlice.toString() + '\n'
+            + 'Bob answered: ' + round.answerBob.toString();
     }
 }

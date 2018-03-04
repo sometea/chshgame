@@ -1,7 +1,6 @@
 import { PlayerSocket } from "./playerSocket";
 import { GameState } from "./gameState";
 import { Bit } from "./bit";
-import { Score } from "./score";
 import { Summary } from "./summary";
 
 export class ChshGame {
