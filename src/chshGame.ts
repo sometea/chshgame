@@ -6,7 +6,7 @@ import { Summary } from "./summary";
 export class ChshGame {
     private state: GameState;
     
-    private score = 0;
+    private totalScore = 0;
 
     private turns = 0;
     
@@ -47,10 +47,10 @@ export class ChshGame {
 
     private triggerReferee() {
         if (!this.state.isRefereesTurn()) return;
-        this.score += this.state.getScore();
+        this.totalScore += this.state.getScore();
         this.turns += 1;
         this.messageBoth((new Summary()).getSummary(this.state.getRound()));
-        this.messageBoth('You ' + (this.state.getScore() ? 'win' : 'loose') + ', % won: ' + this.score / this.turns * 100 + '\n');
+        this.messageBoth('You ' + (this.state.getScore() ? 'win' : 'loose') + ', % won: ' + this.totalScore / this.turns * 100 + '\n');
         this.poseRefereeQuestion();
     }
     
