@@ -1,6 +1,6 @@
-import { PlayerSocket } from "./playerSocket";
 import { GameState } from "./gameState";
 import { Bit } from "./bit";
+import { Player } from "./player";
 
 export class ChshGame {
     private state: GameState;
@@ -9,7 +9,7 @@ export class ChshGame {
 
     private turns = 0;
     
-    constructor(private playerAlice: PlayerSocket, private playerBob: PlayerSocket) {
+    constructor(private playerAlice: Player, private playerBob: Player) {
         this.state = new GameState();
     }
     

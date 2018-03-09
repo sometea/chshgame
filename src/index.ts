@@ -1,9 +1,10 @@
 import { createServer, Socket } from 'net';
-import { PlayerSocket } from './playerSocket';
 import { ChshGame } from './chshGame';
+import { Player } from './player';
+import { PlayerSocket } from './playerSocket';
 
-let playerAlice: PlayerSocket;
-let playerBob: PlayerSocket;
+let playerAlice: Player;
+let playerBob: Player;
 let game: ChshGame;
 
 const server = createServer(socket => {

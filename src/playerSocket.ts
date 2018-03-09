@@ -1,6 +1,7 @@
 import { Socket } from "net";
+import { Player } from "./player";
 
-export class PlayerSocket {
+export class PlayerSocket implements Player {
     constructor(private socket: Socket) {}
 
     message(message: string) {
