@@ -1,6 +1,7 @@
 import { GameState } from "./gameState";
 import { Bit } from "./bit";
 import { Summary } from "./summary";
+import { Player } from "./player";
 
 export class ChshGame {
     private state: GameState;
