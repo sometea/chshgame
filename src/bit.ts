@@ -14,6 +14,10 @@ export class Bit {
         return this.bit;
     }
 
+    toBoolean(): boolean {
+        return this.bit === 1;
+    }
+
     toString() {
         return this.toNumber().toString();
     }

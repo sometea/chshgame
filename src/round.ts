@@ -10,10 +10,16 @@ export class Round {
         return this.winning() ? 1 : 0;
     }
 
+    private xor(a: boolean, b: boolean): boolean {
+        if (a && b) {
+            return false;
+        }
+        return a || b;
+    }
+
     private winning() {
-        const refereeProduct = this.questionAlice.toNumber() * this.questionBob.toNumber();
-        return (this.answerAlice.toNumber() && this.answerBob.toNumber()) ?
-            refereeProduct === 0:
-            refereeProduct === this.answerAlice.toNumber() || this.answerBob.toNumber();
+        const refereeProduct = (this.questionAlice.toNumber() * this.questionBob.toNumber() === 1);
+        const answerXor = this.xor(this.answerAlice.toBoolean(), this.answerBob.toBoolean());
+        return refereeProduct === answerXor;
     }
 }
