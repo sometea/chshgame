@@ -1,10 +1,16 @@
 import { Bit } from "./bit";
+import { PlayerName } from "./player";
 
 export class Round {
-    public answerAlice: Bit = new Bit();
-    public answerBob: Bit = new Bit();
-    public questionAlice: Bit = new Bit();
-    public questionBob: Bit = new Bit();
+    public answer = {
+        [PlayerName.Alice]: new Bit(),
+        [PlayerName.Bob]: new Bit(),
+    };
+
+    public question = {
+        [PlayerName.Alice]: new Bit(),
+        [PlayerName.Bob]: new Bit(),
+    }
 
     getScore(): 0 | 1 {
         return this.winning() ? 1 : 0;
@@ -18,8 +24,8 @@ export class Round {
     }
 
     private winning() {
-        const refereeProduct = (this.questionAlice.toNumber() * this.questionBob.toNumber() === 1);
-        const answerXor = this.xor(this.answerAlice.toBoolean(), this.answerBob.toBoolean());
+        const refereeProduct = (this.question[PlayerName.Alice].toNumber() * this.question[PlayerName.Bob].toNumber() === 1);
+        const answerXor = this.xor(this.answer[PlayerName.Alice].toBoolean(), this.answer[PlayerName.Bob].toBoolean());
         return refereeProduct === answerXor;
     }
 }

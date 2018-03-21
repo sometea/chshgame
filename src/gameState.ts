@@ -1,5 +1,6 @@
 import { Bit } from "./bit";
 import { Round } from "./round";
+import { PlayerName } from "./player";
 
 export enum Turn {
     Referee,
@@ -20,38 +21,33 @@ export class GameState {
         return this.turn === Turn.Referee;
     }
 
-    isAlicesTurn() {
-        return this.turn === Turn.WaitingForAlice || this.turn === Turn.WaitingForPlayers;
+    isPlayersTurn(player: PlayerName) {
+        return this.turn === Turn.WaitingForPlayers || this.waitingForPlayer(player);
     }
 
-    isBobsTurn() {
-        return this.turn === Turn.WaitingForBob || this.turn === Turn.WaitingForPlayers;
+    waitingForPlayer(player: PlayerName) {
+        return (player === PlayerName.Alice && this.turn === Turn.WaitingForAlice) ||
+            (player === PlayerName.Bob && this.turn === Turn.WaitingForBob);
     }
 
-    inputAlice(input: Bit) {
-        if (!this.isAlicesTurn()) return;
-        this.round.answerAlice = input;
-        if (this.turn === Turn.WaitingForAlice) {
+    playerInput(input: Bit, player: PlayerName) {
+        if (!this.isPlayersTurn(player)) return;
+        this.round.answer[player] = input;
+        this.updateTurnPlayerFinished(player);
+    }
+
+    private updateTurnPlayerFinished(player: PlayerName) {
+        if (this.waitingForPlayer(player)) {
             this.turn = Turn.Referee;
         } else {
-            this.turn = Turn.WaitingForBob;
-        }
-    }
-
-    inputBob(input: Bit) {
-        if (!this.isBobsTurn()) return;
-        this.round.answerBob = input;
-        if (this.turn === Turn.WaitingForBob) {
-            this.turn = Turn.Referee;
-        } else {
-            this.turn = Turn.WaitingForAlice;
+            this.turn = player === PlayerName.Alice ? Turn.WaitingForBob : Turn.WaitingForAlice;
         }
     }
 
     referee(questionAlice: Bit, questionBob: Bit) {
         if (this.turn !== Turn.Referee) return;
-        this.round.questionAlice = questionAlice;
-        this.round.questionBob = questionBob;
+        this.round.question[PlayerName.Alice] = questionAlice;
+        this.round.question[PlayerName.Bob] = questionBob;
         this.turn = Turn.WaitingForPlayers;
     }
 

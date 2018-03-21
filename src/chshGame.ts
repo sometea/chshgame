@@ -1,7 +1,7 @@
 import { GameState } from "./gameState";
 import { Bit } from "./bit";
 import { Summary } from "./summary";
-import { Player } from "./player";
+import { Player, PlayerName } from "./player";
 
 export class ChshGame {
     private state: GameState;
@@ -13,30 +13,17 @@ export class ChshGame {
     constructor(private playerAlice: Player, private playerBob: Player) {
         this.state = new GameState();
     }
-    
-    private inputAlice(input: string) {
-        if (!this.state.isAlicesTurn()) {
-            this.playerAlice.message('It\'s not your turn, please wait.');
+
+    private input(input: string, player: Player) {
+        if(!this.state.isPlayersTurn(player.getPlayerName())) {
+            player.message('It\'s not your turn, please wait.');
             return;
         }
         if (!this.checkInput(input)) {
-            this.playerAlice.message('This is not valid input. Please answer with 0 or 1.');
+            player.message('This is not valid input. Please answer with 0 or 1.');
             return;
         }
-        this.state.inputAlice((new Bit()).fromString(input));
-        this.triggerReferee();
-    }
-    
-    private inputBob(input: string) {
-        if (!this.state.isBobsTurn()) {
-            this.playerBob.message('It\'s not your turn, please wait.');
-            return;
-        }
-        if (!this.checkInput(input)) {
-            this.playerBob.message('This is not valid input. Please answer with 0 or 1.');
-            return;
-        }
-        this.state.inputBob((new Bit()).fromString(input));
+        this.state.playerInput((new Bit()).fromString(input), player.getPlayerName());
         this.triggerReferee();
     }
     
@@ -69,10 +56,10 @@ export class ChshGame {
     start() {
         this.poseRefereeQuestion();
         this.playerAlice.registerInputHandler(input => {
-            this.inputAlice(input);
+            this.input(input, this.playerAlice);
         });
         this.playerBob.registerInputHandler(input => {
-            this.inputBob(input);
+            this.input(input, this.playerBob);
         });
     }
 }
