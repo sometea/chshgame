@@ -1,5 +1,5 @@
 import { Bit } from "./bit";
 
 export interface GameStrategy {
-    answer(question: Bit): Bit;
+    answer(question: Bit): Promise<Bit>;
 }
