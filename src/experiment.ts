@@ -1,11 +1,18 @@
 import { Socket } from "net";
 import { ExperimentInput } from "./experimentInput";
+import { SharedPhotons } from "./sharedPhotons";
+import { ClassicalPhotons } from "./classicalPhotons";
+import { Bit } from "./bit";
 
 export class Experiment {
     private lastInputA = new ExperimentInput();
     private lastInputB = new ExperimentInput();
+    
+    private sharedPhotons: SharedPhotons;
 
-    constructor(private socketA: Socket, private socketB: Socket) { }
+    constructor(private socketA: Socket, private socketB: Socket) { 
+        this.sharedPhotons = new ClassicalPhotons();
+    }
 
     start() {
         this.socketA.on('data', (data: Buffer) => {
@@ -27,7 +34,11 @@ export class Experiment {
     }
 
     private outputValues() {
-        this.socketA.write('0\n');
-        this.socketB.write('0\n');
+        const results = this.sharedPhotons.measure(
+            (new Bit()).fromString(this.lastInputA.get()),
+            (new Bit()).fromString(this.lastInputB.get())
+        );
+        this.socketA.write('Result: ' + results[0].toString() + '\n');
+        this.socketB.write('Result: ' + results[1].toString() + '\n');
     }
 }

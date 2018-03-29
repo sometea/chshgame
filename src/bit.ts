@@ -1,8 +1,12 @@
 export class Bit {
     private bit: 0 | 1 = 0;
 
-    constructor() {
-        this.fromRandom();
+    constructor(initial?: Number) {
+        if (initial === undefined) {
+            this.fromRandom();
+        } else {
+            this.fromNumber(initial);
+        }
     }
 
     fromString(s: string) {

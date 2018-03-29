@@ -12,4 +12,8 @@ export class ExperimentInput {
     wasProvided(): boolean {
         return this.provided;
     }
+
+    get(): string {
+        return this.input;
+    }
 }
