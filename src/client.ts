@@ -2,7 +2,7 @@ import { createConnection, Socket } from "net";
 import { GameStrategy } from "./gameStrategy";
 import { DeterministicStrategy } from "./deterministicStrategy";
 import { Bit } from "./bit";
-import { ClassicalPhotonStrategy } from "./classicalPhotonStrategy";
+import { PhotonMeasuringStrategy } from "./photonMeasuringStrategy";
 
 const gameConnection = createConnection(8000);
 const experimentConnection = createConnection(8001);
@@ -11,11 +11,11 @@ let counter = 0;
 const maxCounter = 500;
 
 // const strategy: GameStrategy = new DeterministicStrategy();
-const strategy: GameStrategy = new ClassicalPhotonStrategy(experimentConnection);
+const strategy: GameStrategy = new PhotonMeasuringStrategy(experimentConnection);
 
 gameConnection.on('data', async data => {
     if (data.toString().includes('Referee question') && counter < maxCounter) {
-        const question = (new Bit()).fromString(data.toString().substr(-1));
+        const question = (new Bit()).fromString(data.toString().substr(-2, 1));
         const answer = await strategy.answer(question);
         gameConnection.write(answer.toString());
         counter++;

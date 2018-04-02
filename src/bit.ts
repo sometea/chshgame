@@ -1,7 +1,7 @@
 export class Bit {
     private bit: 0 | 1 = 0;
 
-    constructor(initial?: Number) {
+    constructor(initial?: number) {
         if (initial === undefined) {
             this.fromRandom();
         } else {
@@ -26,7 +26,7 @@ export class Bit {
         return this.toNumber().toString();
     }
 
-    fromNumber(n: Number) {
+    fromNumber(n: number) {
         this.bit = n < 0.5 ? 0 : 1;
         return this;
     }
