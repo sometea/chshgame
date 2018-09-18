@@ -26,7 +26,7 @@ export class QuantumPhotons implements SharedPhotons {
         setting1: number,
         setting2: number
     ): number {
-        const angle = (setting1 === setting2) ? - 3.0 * Math.PI / 4.0 : -1.0 * Math.PI / 4.0;
-        return outcome1 === outcome2 ? (1 - Math.cos(angle)) / 4.0 : (1 + Math.cos(angle)) / 4.0;
+        const angle = (setting1 === setting2) ? 1.0 * Math.PI / 4.0 : 3.0 * Math.PI / 4.0;
+        return (outcome1 === outcome2) ? (1 - Math.cos(angle)) / 4.0 : (1 + Math.cos(angle)) / 4.0;
     }
 }

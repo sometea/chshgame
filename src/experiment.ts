@@ -18,11 +18,11 @@ export class Experiment {
 
     start() {
         this.socketA.on('data', (data: Buffer) => {
-            this.lastInputA.provide(data.toString() === '1' ? '1' : '0');
+            this.lastInputA.provide(data.toString().substr(-2, 1));
             this.checkAndContinue();
         });
         this.socketB.on('data', (data: Buffer) => {
-            this.lastInputB.provide(data.toString() === '1' ? '1' : '0');
+            this.lastInputB.provide(data.toString().substr(-2, 1));
             this.checkAndContinue();
         });
     }

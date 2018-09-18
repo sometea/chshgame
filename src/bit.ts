@@ -10,7 +10,7 @@ export class Bit {
     }
 
     fromString(s: string) {
-        this.bit = s === '0' ? 0 : 1;
+        this.bit = (s === '0') ? 0 : 1;
         return this;
     }
 

@@ -5,13 +5,12 @@ import { Bit } from "./bit";
 import { PhotonMeasuringStrategy } from "./photonMeasuringStrategy";
 
 const gameConnection = createConnection(8000);
-const experimentConnection = createConnection(8001);
 
 let counter = 0;
 const maxCounter = 500;
 
 // const strategy: GameStrategy = new DeterministicStrategy();
-const strategy: GameStrategy = new PhotonMeasuringStrategy(experimentConnection);
+const strategy: GameStrategy = new PhotonMeasuringStrategy(createConnection(8001));
 
 gameConnection.on('data', async data => {
     if (data.toString().includes('Referee question') && counter < maxCounter) {
