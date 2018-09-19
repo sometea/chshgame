@@ -26,7 +26,19 @@ export class QuantumPhotons implements SharedPhotons {
         setting1: number,
         setting2: number
     ): number {
-        const angle = (setting1 === setting2) ? 3.0 * Math.PI / 4.0 : 5.0 * Math.PI / 4.0;
-        return (outcome1 === outcome2) ? (1 - Math.cos(angle)) / 4.0 : (1 + Math.cos(angle)) / 4.0;
+        const lambda1 = (outcome1 === 0) ? -1 : outcome1;
+        const lambda2 = (outcome2 === 0) ? -1 : outcome2;
+        const theta1 = (setting1 === 0) ? 0 : 2 * Math.PI / 4.0;
+        const theta2 = (setting2 === 0) ? 3.0 * Math.PI / 4.0 : -3.0 * Math.PI / 4.0;
+        return this.qmProbability(lambda1, lambda2, theta1, theta2);
+    }
+
+    private qmProbability(
+        lambda1: number,
+        lambda2: number,
+        theta1: number,
+        theta2: number
+    ): number {
+        return (4 - 4*lambda1*lambda2*2*Math.cos(theta1+theta2) + 4) / 32.0;
     }
 }
