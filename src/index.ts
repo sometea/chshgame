@@ -1,4 +1,4 @@
-import { createServer, Socket } from 'net';
+import { createServer } from 'net';
 import { ChshGame } from './chshGame';
 import { Player, PlayerName } from './player';
 import { PlayerSocket } from './playerSocket';
