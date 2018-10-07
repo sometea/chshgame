@@ -12,8 +12,8 @@ export class Experiment {
     private sharedPhotons: SharedPhotons;
 
     constructor(private socketA: Socket, private socketB: Socket) { 
-        // this.sharedPhotons = new ClassicalPhotons();
-        this.sharedPhotons = new QuantumPhotons();
+        this.sharedPhotons = new ClassicalPhotons();
+        // this.sharedPhotons = new QuantumPhotons();
     }
 
     start() {
