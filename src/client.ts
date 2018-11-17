@@ -1,16 +1,13 @@
-import { createConnection, Socket } from "net";
-import { GameStrategy } from "./gameStrategy";
-import { DeterministicStrategy } from "./deterministicStrategy";
+import { createConnection } from "net";
 import { Bit } from "./bit";
-import { PhotonMeasuringStrategy } from "./photonMeasuringStrategy";
+import { container } from "./container";
 
 const gameConnection = createConnection(8000);
 
 let counter = 0;
 const maxCounter = 500;
 
-// const strategy: GameStrategy = new DeterministicStrategy();
-const strategy: GameStrategy = new PhotonMeasuringStrategy(createConnection(8001));
+const strategy = container.GameStrategy();
 
 gameConnection.on('data', async data => {
     if (data.toString().includes('Referee question') && counter < maxCounter) {

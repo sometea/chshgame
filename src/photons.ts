@@ -1,5 +1,6 @@
 import { createServer, Socket } from "net";
 import { Experiment } from "./experiment";
+import { container } from "./container";
 
 let socketA: Socket;
 let socketB: Socket;
@@ -14,7 +15,7 @@ const server = createServer(socket => {
     } 
     if (!socketB) {
         socketB = socket;
-        experiment = new Experiment(socketA, socketB);
+        experiment = container.Experiment(socketA, socketB);
         experiment.start();
         return;
     }

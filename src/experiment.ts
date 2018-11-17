@@ -8,12 +8,12 @@ import { QuantumPhotons } from "./quantumPhotons";
 export class Experiment {
     private lastInputA = new ExperimentInput();
     private lastInputB = new ExperimentInput();
-    
-    private sharedPhotons: SharedPhotons;
 
-    constructor(private socketA: Socket, private socketB: Socket) { 
-        this.sharedPhotons = new ClassicalPhotons();
-        // this.sharedPhotons = new QuantumPhotons();
+    constructor(
+        private socketA: Socket,
+        private socketB: Socket,
+        private sharedPhotons: SharedPhotons
+    ) {
     }
 
     start() {
