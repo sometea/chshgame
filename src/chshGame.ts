@@ -4,17 +4,16 @@ import { Summary } from "./summary";
 import { Player } from "./player";
 
 export class ChshGame {
-    private state: GameState;
-
-    private summary: Summary;
-    
     private totalScore = 0;
 
     private turns = 0;
     
-    constructor(private playerAlice: Player, private playerBob: Player) {
-        this.state = new GameState();
-        this.summary = new Summary();
+    constructor(
+        private playerAlice: Player,
+        private playerBob: Player,
+        private state: GameState,
+        private summary: Summary
+    ) {
     }
 
     private input(input: string, player: Player) {
