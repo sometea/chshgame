@@ -8,15 +8,35 @@ import { Experiment } from "./experiment";
 import { ClassicalPhotons } from "./classicalPhotons";
 import { QuantumPhotons } from "./quantumPhotons";
 import { PhotonMeasuringStrategy } from "./photonMeasuringStrategy";
+import { DeterministicStrategy } from "./deterministicStrategy";
 
 export const container = {
-    ChshGame: (playerAlice: Player, playerBob: Player) => new ChshGame(playerAlice, playerBob, container.GameState(), container.Summary()),
-    GameState: () => new GameState(),
-    Summary: () => new Summary(),
-    PlayerAlice: (socket: Socket) => new PlayerSocket(socket, PlayerName.Alice),
-    PlayerBob: (socket: Socket) => new PlayerSocket(socket, PlayerName.Bob),
-    GameStrategy: () => new PhotonMeasuringStrategy(createConnection(8001)),
-    Experiment: (socketA: Socket, socketB: Socket) => new Experiment(socketA, socketB, container.ClassicalPhotons()),
-    ClassicalPhotons: () => new ClassicalPhotons(),
-    QuantumPhotons: () => new QuantumPhotons(),
+    ChshGame: (playerAlice: Player, playerBob: Player) => {
+        return new ChshGame(playerAlice, playerBob, container.GameState(), container.Summary());
+    },
+    GameState: () => {
+        return new GameState();
+    },
+    Summary: () => {
+        return new Summary();
+    },
+    PlayerAlice: (socket: Socket) => {
+        return new PlayerSocket(socket, PlayerName.Alice);
+    },
+    PlayerBob: (socket: Socket) => {
+        return new PlayerSocket(socket, PlayerName.Bob);
+    },
+    GameStrategy: () => {
+        // return new DeterministicStrategy();
+        return new PhotonMeasuringStrategy(createConnection(8001));
+    },
+    Experiment: (socketA: Socket, socketB: Socket) => {
+        return new Experiment(socketA, socketB, container.ClassicalPhotons());
+    },
+    ClassicalPhotons: () => {
+        return new ClassicalPhotons();
+    },
+    QuantumPhotons: () => {
+        return new QuantumPhotons();
+    },
 };
